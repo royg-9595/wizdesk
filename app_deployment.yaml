@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wizdeskapp-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: wizdeskapp
+  template:
+    metadata:
+      labels:
+        app: wizdeskapp
+    spec:
+      containers:
+      - name: wizdeskapp
+        image: jayanthroyg/wizdeskapp:latest
+        ports:
+        - containerPort: 80
