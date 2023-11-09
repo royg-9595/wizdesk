@@ -1,11 +1,6 @@
-name: Publish Docker Image
+name: Build and Push Docker image to Docker Hub
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
+on: push
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
@@ -20,18 +15,11 @@ jobs:
           username: ${{ secrets.Docker_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-        with:
-          images:  jayanthroyg/wizdeskapp
-
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: jayanthroyg/wizdeskapp:latest
           
           
